@@ -4,20 +4,49 @@
 
   <h1>
     TODO List
-    <a href="{% url 'todo:index' %}" class="btn btn-primary link-to-page">
+    <a href="{% url 'todo:task-create' %}" class="btn btn-primary link-to-page float-right">
       Add task
     </a>
   </h1>
 
   {% if task_list %}
-    <ul>
-      {% for car in car_list %}
-        <li>
-          <a href="{% url "taxi:car-detail" pk=car.id %} ">{{ car.id }}</a>
-          {{ car.model }} ({{ car.manufacturer.name }})
-        </li>
+
+      {% for task in task_list %}
+        <div>
+          <div class="name">
+            <strong>{{ task.content }}</strong>
+            {% if task.done %}
+              <span class="done"><strong>Done</strong></span>
+          <a href="{% url 'todo:task-create' %}" class="btn btn-success link-to-page float-right">
+            Complete
+          </a>
+            {% else %}
+            <span class="not-done"><strong>Not done</strong></span>
+            <a href="{% url 'todo:task-create' %}" class="btn btn-secondary link-to-page float-right">
+              Undo
+            </a>
+            {% endif %}
+          </div>
+
+          <p> Created {{task.datetime}}
+            {% if task.done %}
+              <span class="not-done"><strong>{{ task.deadline }}</strong></span>
+            {% endif %}</p>
+          <p>
+            <span class="tag">
+          Tags:
+            {% for tag in task.tags.all %}
+            {{ tag.name}}
+            {% endfor %}
+            </span>
+            <a href="{% url 'todo:task-create' %}">Update</a>
+            <a href="{% url 'todo:task-create' %}">Delete</a>
+          </p>
+          <hr>
+        </div>
+
       {% endfor %}
-    </ul>
+
   {% else %}
     <p>There are no cars in taxi</p>
   {% endif %}
