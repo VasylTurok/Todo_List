@@ -2,7 +2,7 @@
 
 {% block content %}
 
-  <h1>
+  <h1 class="h1">
     TODO List
     <a href="{% url 'todo:task-create' %}" class="btn btn-primary link-to-page float-right">
       Add task
@@ -17,13 +17,14 @@
             <strong>{{ task.content }}</strong>
             {% if task.done %}
               <span class="done"><strong>Done</strong></span>
-          <a href="{% url 'todo:task-create' %}" class="btn btn-success link-to-page float-right">
-            Complete
+          <a href="{% url 'todo:change_state' pk=task.id %}?next={{ request.get_full_path }}" class="btn btn-secondary link-to-page float-right">
+            Undo
           </a>
+
             {% else %}
             <span class="not-done"><strong>Not done</strong></span>
-            <a href="{% url 'todo:task-create' %}" class="btn btn-secondary link-to-page float-right">
-              Undo
+            <a href="{% url 'todo:change_state' pk=task.id %}?next={{ request.get_full_path }}" class="btn btn-success link-to-page float-right">
+              Complete
             </a>
             {% endif %}
           </div>
@@ -39,8 +40,8 @@
             {{ tag.name}}
             {% endfor %}
             </span>
-            <a href="{% url 'todo:task-create' %}">Update</a>
-            <a href="{% url 'todo:task-create' %}">Delete</a>
+            <a href="{% url 'todo:task-update' pk=task.id %}">Update</a>
+            <a href="{% url 'todo:task-delete' pk=task.id %}">Delete</a>
           </p>
           <hr>
         </div>
