@@ -1,0 +1,21 @@
+body{
+  margin: 20px;
+  padding: 0;
+
+}
+.done{
+  color: green;
+}
+.not-done{
+  color: red
+}
+.name {
+	font-size: 18px;
+	margin: 20px 0;
+}
+.float-right {
+    float: right;
+}
+.tag{
+	color: gray;
+}
